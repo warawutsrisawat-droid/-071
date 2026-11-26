@@ -1,0 +1,996 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วางแผนเที่ยว | เที่ยวบ้านเรา</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ตั้งค่าพื้นฐานเว็บไซต์ */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F3F6F3;
+            color: #294D3E;
+            line-height: 1.7;
+        }
+
+        /* ส่วนหัวและส่วนท้ายเว็บไซต์ */
+        header, footer {
+            background: #294D3E;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .site-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 12px;
+        }
+
+        /* เมนูนำทาง */
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 8px;
+        }
+
+        nav a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        nav a:hover,
+        nav a[aria-current="page"] {
+            background: #E5EFE8;
+            color: #294D3E;
+        }
+
+        /* พื้นที่เนื้อหาหลัก */
+        main {
+            width: 95%;
+            max-width: 1050px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        /* ป้ายแบนเนอร์ด้านบน */
+        .hero {
+            background:
+                linear-gradient(
+                    rgba(20, 50, 38, 0.75),
+                    rgba(20, 50, 38, 0.75)
+                ),
+                url("images/aomanow.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-color: #294D3E;
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin: 10px 0;
+        }
+
+        .hero p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: #E5EFE8;
+            color: #294D3E;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* กล่องสรุปข้อมูลทริป */
+        .trip-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .summary-box {
+            background: white;
+            border: 1px solid #DCE7DF;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .summary-icon {
+            font-size: 30px;
+        }
+
+        .summary-box h3 {
+            font-size: 20px;
+            margin: 8px 0;
+        }
+
+        .summary-box p {
+            color: #666666;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* กล่องความคืบหน้า */
+        .progress-box {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #DCE7DF;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .progress-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 12px;
+            background: #E5EFE8;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #4A9466;
+            border-radius: 20px;
+            transition: width 0.3s;
+        }
+
+        /* หัวข้อหลัก */
+        .section-title {
+            font-size: 25px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #DCE7DF;
+        }
+
+        /* หัวข้อแบ่งช่วงเวลา */
+        .period-title {
+            display: inline-block;
+            background: #294D3E;
+            color: white;
+            font-size: 18px;
+            padding: 8px 20px;
+            border-radius: 6px;
+            margin: 15px 0 25px;
+        }
+
+        /* เส้นลำดับการท่องเที่ยว */
+        .timeline {
+            position: relative;
+            border-left: 3px solid #9BBCA6;
+            margin-left: 22px;
+            padding-left: 30px;
+        }
+
+        /* การ์ดแต่ละสถานที่ */
+        .timeline-item {
+            position: relative;
+            background: white;
+            border: 1px solid #DCE7DF;
+            border-radius: 12px;
+            display: flex;
+            gap: 20px;
+            padding: 18px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+            transition: 0.3s;
+        }
+
+        .timeline-item:hover {
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        /* หมายเลขลำดับสถานที่ */
+        .number {
+            position: absolute;
+            left: -50px;
+            top: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #294D3E;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 3px solid #F3F6F3;
+        }
+
+        /* รูปภาพสถานที่ */
+        .timeline-item img {
+            width: 240px;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        /* พื้นที่ข้อความ */
+        .timeline-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* เวลาเดินทาง */
+        .time {
+            display: inline-block;
+            background: #E5EFE8;
+            color: #294D3E;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* หัวข้อชื่อสถานที่ */
+        .timeline-info h2 {
+            font-size: 23px;
+            margin: 10px 0;
+            color: #294D3E;
+        }
+
+        /* ข้อความอธิบาย */
+        .timeline-info p {
+            color: #555555;
+            font-size: 15px;
+            margin: 8px 0;
+        }
+
+        /* ป้ายประเภทกิจกรรม */
+        .tag {
+            display: inline-block;
+            background: #FFF0D7;
+            color: #805B24;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            margin: 5px 5px 5px 0;
+        }
+
+        /* ช่องติ๊กเมื่อเที่ยวเสร็จ */
+        .check-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .check-row input {
+            width: 18px;
+            height: 18px;
+            accent-color: #294D3E;
+            cursor: pointer;
+        }
+
+        /* เปลี่ยนสีเมื่อเที่ยวเสร็จ */
+        .timeline-item.completed {
+            background: #EAF4EC;
+            border-color: #75A884;
+        }
+
+        /* กล่องคำแนะนำ */
+        .tips {
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #DCE7DF;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .tips h2 {
+            margin-top: 0;
+            font-size: 23px;
+        }
+
+        .tips ul {
+            padding-left: 22px;
+        }
+
+        .tips li {
+            margin-bottom: 10px;
+            color: #555555;
+        }
+
+        /* ปุ่มต่าง ๆ */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background: #294D3E;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 15px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .action-button:hover {
+            background: #3E7059;
+        }
+
+        .reset-button {
+            background: #E5EFE8;
+            color: #294D3E;
+        }
+
+        .reset-button:hover {
+            background: #C9DECF;
+        }
+
+        /* ส่วนท้ายเว็บไซต์ */
+        footer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        /* รองรับโทรศัพท์ */
+        @media (max-width: 700px) {
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .hero {
+                padding: 35px 15px;
+            }
+
+            .trip-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+
+            .timeline-item img {
+                width: 100%;
+                height: 200px;
+            }
+
+            .timeline {
+                margin-left: 15px;
+                padding-left: 22px;
+            }
+
+            .number {
+                left: -42px;
+            }
+
+            .timeline-info h2 {
+                font-size: 20px;
+            }
+        }
+
+        /* ตั้งค่าสำหรับพิมพ์แผนเที่ยว */
+        @media print {
+
+            header,
+            footer,
+            .actions,
+            .progress-box,
+            .check-row {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .hero {
+                background: white;
+                color: #294D3E;
+                padding: 15px;
+            }
+
+            .timeline-item {
+                break-inside: avoid;
+                box-shadow: none;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- ส่วนหัวเว็บไซต์ -->
+<header>
+
+    <p class="site-name">เที่ยวบ้านเรา</p>
+
+    <!-- เมนูนำทาง -->
+    <nav>
+        <ul>
+            <li><a href="index.html">หน้าแรก</a></li>
+
+            <li><a href="places.html">ที่เที่ยว</a></li>
+
+            <li><a href="food.html">อาหาร</a></li>
+
+            <li>
+                <a href="plan.html" aria-current="page">
+                    วางแผนเที่ยว
+                </a>
+            </li>
+
+            <li>
+                <a href="travel.html">ข้อมูลการเดินทาง</a>
+            </li>
+
+            <li><a href="index.html">เข้าสู่ระบบ</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<!-- เนื้อหาหลัก -->
+<main>
+
+    <!-- แบนเนอร์หัวเว็บไซต์ -->
+    <section class="hero">
+
+        <span class="hero-label">ONE DAY TRIP</span>
+
+        <h1>เที่ยวประจวบในหนึ่งวัน</h1>
+
+        <p>
+            ไหว้พระ ชมเมือง ชิมอาหาร
+            สัมผัสธรรมชาติและบรรยากาศริมทะเล
+        </p>
+
+    </section>
+<!-- แผนที่แนะนำสถานที่ท่องเที่ยว -->
+<section class="map-guide">
+
+    <!-- หัวข้อหลัก -->
+    <h2>10 สถานที่ท่องเที่ยวประจวบคีรีขันธ์</h2>
+
+    <!-- ข้อความแนะนำ -->
+    <p>
+        ค้นพบสถานที่ท่องเที่ยวทางธรรมชาติ
+        และวางแผนการเดินทางทั่วจังหวัด
+    </p>
+
+    <!-- รูปภาพแผนที่ -->
+    <img src="images/maptravel.jpg"
+         alt="แผนที่ 10 สถานที่ท่องเที่ยวประจวบคีรีขันธ์">
+
+    <!-- ปุ่มขยายรูปภาพ -->
+    <a class="map-open"
+       href="images/maptravel.jpg"
+       target="_blank">
+        ดูแผนที่ขนาดเต็ม
+    </a>
+
+    <!-- เครดิตรูปภาพ -->
+    <p class="map-credit">
+        ที่มาภาพ: ททท. สำนักงานประจวบคีรีขันธ์
+    </p>
+
+</section>
+
+    <!-- ข้อมูลสรุปการท่องเที่ยว -->
+    <section class="trip-summary">
+
+        <div class="summary-box">
+            <div class="summary-icon">📅</div>
+            <h3>1 วัน</h3>
+            <p>ระยะเวลาท่องเที่ยว</p>
+        </div>
+
+        <div class="summary-box">
+            <div class="summary-icon">📍</div>
+            <h3>7 จุดแวะ</h3>
+            <p>สถานที่และกิจกรรม</p>
+        </div>
+
+        <div class="summary-box">
+            <div class="summary-icon">☀️</div>
+            <h3>07.00 – 18.00 น.</h3>
+            <p>ช่วงเวลาแนะนำ</p>
+        </div>
+
+    </section>
+
+    <!-- แถบความคืบหน้า -->
+    <section class="progress-box">
+
+        <div class="progress-heading">
+
+            <span>ความคืบหน้าการเดินทาง</span>
+
+            <span id="progressText">0 / 7 สถานที่</span>
+
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+    </section>
+
+    <!-- หัวข้อหลัก -->
+    <h2 class="section-title">
+        ลำดับแผนการท่องเที่ยว
+    </h2>
+
+    <!-- ช่วงเช้า -->
+    <h3 class="period-title">🌤️ ช่วงเช้า</h3>
+
+    <div class="timeline">
+
+        <!-- ลำดับที่ 1 -->
+        <article class="timeline-item">
+
+            <div class="number">1</div>
+
+            <!-- รูปภาพ -->
+            <img src="images/pic2.png"
+                 alt="ต่ายกาแฟโบราณ">
+
+            <div class="timeline-info">
+
+                <!-- เวลา -->
+                <span class="time">07.00 – 08.00 น.</span>
+
+                <!-- หัวข้อสถานที่ -->
+                <h2>ต่ายกาแฟโบราณ</h2>
+
+                <!-- ข้อความอธิบาย -->
+                <p>
+                    เริ่มต้นวันด้วยอาหารเช้าแบบท้องถิ่น
+                    รับประทานไข่ลวก กาแฟโบราณ
+                    หรือเครื่องดื่มก่อนออกเดินทาง
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    รับประทานอาหารเช้าและสัมผัสวิถีชีวิตชุมชน
+                </p>
+
+                <span class="tag">อาหารเช้า</span>
+                <span class="tag">ร้านค้าท้องถิ่น</span>
+
+                <label class="check-row">
+                    <input type="checkbox" class="visit-check">
+                    เที่ยวเสร็จแล้ว
+                </label>
+
+            </div>
+
+        </article>
+
+        <!-- ลำดับที่ 2 -->
+        <article class="timeline-item">
+
+            <div class="number">2</div>
+
+            <img src="images/Kaow.jpg"
+                 alt="เขาช่องกระจก">
+
+            <div class="timeline-info">
+
+                <span class="time">08.30 – 10.00 น.</span>
+
+                <h2>เขาช่องกระจก</h2>
+
+                <p>
+                    เยี่ยมชมสถานที่สำคัญทางศาสนา
+                    และชมทิวทัศน์ของเมืองประจวบคีรีขันธ์
+                    พร้อมบรรยากาศของโค้งอ่าว
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    ไหว้พระ ชมวิว และถ่ายภาพ
+                </p>
+
+                <span class="tag">ธรรมชาติ</span>
+                <span class="tag">วัฒนธรรม</span>
+
+                <label class="check-row">
+                    <input type="checkbox" class="visit-check">
+                    เที่ยวเสร็จแล้ว
+                </label>
+
+            </div>
+
+        </article>
+
+        <!-- ลำดับที่ 3 -->
+        <article class="timeline-item">
+
+            <div class="number">3</div>
+
+            <img src="images/lukmuang.jpg"
+                 alt="ศาลหลักเมืองประจวบคีรีขันธ์">
+
+            <div class="timeline-info">
+
+                <span class="time">10.15 – 11.00 น.</span>
+
+                <h2>ศาลหลักเมืองประจวบคีรีขันธ์</h2>
+
+                <p>
+                    สักการะศาลหลักเมืองเพื่อความเป็นสิริมงคล
+                    พร้อมชมความงดงามของสถาปัตยกรรม
+                    และเรียนรู้ประวัติศาสตร์ท้องถิ่น
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    สักการะองค์หลักเมืองและชมสถาปัตยกรรม
+                </p>
+
+                <span class="tag">ประวัติศาสตร์</span>
+                <span class="tag">วัฒนธรรม</span>
+
+                <label class="check-row">
+                    <input type="checkbox" class="visit-check">
+                    เที่ยวเสร็จแล้ว
+                </label>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    <!-- ช่วงกลางวัน -->
+    <h3 class="period-title">🍽️ ช่วงกลางวัน</h3>
+
+    <div class="timeline">
+
+        <!-- ลำดับที่ 4 -->
+        <article class="timeline-item">
+
+            <div class="number">4</div>
+
+            <img src="images/อาหารทะเล.jpg"
+                 alt="อาหารทะเลสด">
+
+            <div class="timeline-info">
+
+                <span class="time">11.30 – 13.00 น.</span>
+
+                <h2>รับประทานอาหารทะเล</h2>
+
+                <p>
+                    พักรับประทานอาหารกลางวัน
+                    ลิ้มลองอาหารทะเลและอาหารพื้นเมือง
+                    เช่น กุ้งเผา ปูม้านึ่ง ปลาหมึกย่าง
+                    และปลากะพงทอดน้ำปลา
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    รับประทานอาหารกลางวันและพักผ่อน
+                </p>
+
+                <span class="tag">อาหารทะเล</span>
+                <span class="tag">อาหารกลางวัน</span>
+
+                <label class="check-row">
+                    <input type="checkbox" class="visit-check">
+                    เที่ยวเสร็จแล้ว
+                </label>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    <!-- ช่วงบ่าย -->
+    <h3 class="period-title">🏖️ ช่วงบ่าย</h3>
+
+    <div class="timeline">
+
+        <!-- ลำดับที่ 5 -->
+        <article class="timeline-item">
+
+            <div class="number">5</div>
+
+            <img src="images/aomanow.jpg"
+                 alt="อ่าวมะนาว">
+
+            <div class="timeline-info">
+
+                <span class="time">13.30 – 15.30 น.</span>
+
+                <h2>อ่าวมะนาว</h2>
+
+                <p>
+                    พักผ่อนท่ามกลางบรรยากาศธรรมชาติ
+                    ชมวิวชายหาดและทะเล
+                    พร้อมถ่ายภาพเป็นที่ระลึก
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    เดินเล่นริมชายหาด นั่งพักผ่อน และถ่ายรูป
+                </p>
+
+                <span class="tag">ทะเล</span>
+                <span class="tag">พักผ่อน</span>
+
+                <label class="check-row">
+                    <input type="checkbox" class="visit-check">
+                    เที่ยวเสร็จแล้ว
+                </label>
+
+            </div>
+
+        </article>
+
+        <!-- ลำดับที่ 6 -->
+        <article class="timeline-item">
+
+            <div class="number">6</div>
+
+            <img src="images/market1.jpg"
+                 alt="ตลาดอาหารพื้นเมือง">
+
+            <div class="timeline-info">
+
+                <span class="time">16.00 – 17.00 น.</span>
+
+                <h2>ตลาดอาหารพื้นเมืองและของฝาก</h2>
+
+                <p>
+                    เลือกซื้ออาหารแห้งและสินค้าท้องถิ่น
+                    เช่น กุ้งแห้ง ปลาแห้ง ปลาหมึกแห้ง
+                    น้ำพริก และของฝากสำหรับครอบครัว
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    เดินตลาด เลือกซื้อสินค้าและของฝาก
+                </p>
+
+                <span class="tag">ตลาด</span>
+                <span class="tag">ของฝาก</span>
+
+                <label class="check-row">
+                    <input type="checkbox" class="visit-check">
+                    เที่ยวเสร็จแล้ว
+                </label>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    <!-- ช่วงเย็น -->
+    <h3 class="period-title">🌅 ช่วงเย็น</h3>
+
+    <div class="timeline">
+
+        <!-- ลำดับที่ 7 -->
+        <article class="timeline-item">
+
+            <div class="number">7</div>
+
+            <img src="images/sapanpla.jpg"
+                 alt="สะพานปลา">
+
+            <div class="timeline-info">
+
+                <span class="time">17.15 – 18.00 น.</span>
+
+                <h2>สะพานปลา</h2>
+
+                <p>
+                    ปิดท้ายการท่องเที่ยวด้วยการเดินเล่น
+                    ชมบรรยากาศริมทะเลในช่วงเย็น
+                    และถ่ายภาพเก็บความประทับใจ
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    ชมวิวทะเล เดินเล่น และถ่ายภาพ
+                </p>
+
+                <span class="tag">จุดชมวิว</span>
+                <span class="tag">ถ่ายภาพ</span>
+
+                <label class="check-row">
+                    <input type="checkbox" class="visit-check">
+                    เที่ยวเสร็จแล้ว
+                </label>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    <!-- กล่องคำแนะนำ -->
+    <section class="tips">
+
+        <h2>💡 คำแนะนำก่อนออกเดินทาง</h2>
+
+        <ul>
+            <li>เตรียมน้ำดื่ม หมวก ร่ม และครีมกันแดด</li>
+
+            <li>
+                สวมรองเท้าที่เหมาะสมกับการเดิน
+            </li>
+
+            <li>
+                แต่งกายสุภาพเมื่อเข้าชมสถานที่ทางศาสนา
+            </li>
+
+            <li>
+                ตรวจสอบเวลาเปิดทำการของสถานที่และร้านอาหาร
+            </li>
+
+            <li>
+                รักษาความสะอาดและปฏิบัติตามกฎของสถานที่
+            </li>
+        </ul>
+
+        <p>
+            <strong>หมายเหตุ:</strong>
+            แผนการท่องเที่ยวนี้เป็นตัวอย่าง
+            สามารถปรับเปลี่ยนเวลาได้ตามความเหมาะสม
+            สภาพอากาศ และการเดินทางจริง
+        </p>
+
+    </section>
+
+    <!-- ปุ่มควบคุม -->
+    <div class="actions">
+
+    <a href="travel.html" class="action-button">
+    ดูข้อมูลการเดินทาง →
+</a>
+
+        <button class="action-button"
+                onclick="window.print()">
+            🖨️ พิมพ์แผนเที่ยว
+        </button>
+
+        <button class="action-button reset-button"
+                onclick="resetPlan()">
+            ↻ เริ่มแผนใหม่
+        </button>
+
+    </div>
+
+</main>
+
+<!-- ส่วนท้ายเว็บไซต์ -->
+<footer>
+
+    <p>
+        จัดทำโดย นายวรวุฒิ ศรีสวัสดิ์071
+        | ใบงานฝึกปฏิบัติวิชาการสร้างเว็บไซต์ทางธุรกิจ
+    </p>
+
+</footer>
+
+<!-- JavaScript ควบคุมการวางแผน -->
+<script>
+
+    // เลือกช่องติ๊กกิจกรรมทั้งหมด
+    const checkboxes =
+        document.querySelectorAll(".visit-check");
+
+    // ฟังก์ชันอัปเดตความคืบหน้า
+    function updateProgress() {
+
+        let completed = 0;
+
+        checkboxes.forEach(function(check) {
+
+            if (check.checked) {
+                completed++;
+            }
+
+            check.closest(".timeline-item")
+                .classList.toggle(
+                    "completed",
+                    check.checked
+                );
+
+        });
+
+        let total = checkboxes.length;
+
+        let percent = (completed / total) * 100;
+
+        document.getElementById("progressBar")
+            .style.width = percent + "%";
+
+        document.getElementById("progressText")
+            .textContent =
+                completed + " / " + total + " สถานที่";
+
+        if (completed === total) {
+
+            document.getElementById("progressText")
+                .textContent = "เที่ยวครบทุกสถานที่แล้ว!";
+        }
+
+    }
+
+    // เมื่อกดติ๊กกิจกรรม
+    checkboxes.forEach(function(check) {
+
+        check.addEventListener(
+            "change",
+            updateProgress
+        );
+
+    });
+
+    // ฟังก์ชันเริ่มแผนใหม่
+    function resetPlan() {
+
+        checkboxes.forEach(function(check) {
+            check.checked = false;
+        });
+
+        updateProgress();
+    }
+
+    // แสดงค่าเริ่มต้น
+    updateProgress();
+
+</script>
+
+</body>
+</html>

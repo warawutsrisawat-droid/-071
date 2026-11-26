@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เที่ยวบ้านเรา</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ตั้งค่าพื้นฐาน */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f6f3;
+    color: #294d3e;
+    line-height: 1.6;
+}
+
+/* ส่วนหัวเว็บไซต์ */
+header {
+    background: #294d3e;
+    color: white;
+    padding: 15px 20px;
+}
+
+.site-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+
+/* เนื้อหาหลัก */
+main {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* พื้นที่รูปภาพ */
+.slider {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    background: #dce8df;
+    border-radius: 5px;
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* จุดใต้รูปภาพ */
+.dots {
+    text-align: center;
+    margin: 10px 0 25px;
+}
+
+.dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    background: #b8c9bf;
+    border-radius: 50%;
+    margin: 0 3px;
+}
+
+.dot.active {
+    width: 20px;
+    border-radius: 10px;
+    background: #294d3e;
+}
+
+/* คำอธิบาย */
+.description {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+/* กล่องข้อมูล */
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #dce7df;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin-bottom: 15px;
+}
+
+.button {
+    display: inline-block;
+    background: #294d3e;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.button:hover {
+    background: #3e7059;
+}
+
+/* หน้าเข้าสู่ระบบ */
+#loginPage {
+    display: none;
+    max-width: 450px;
+    margin: 25px auto;
+    padding: 30px 20px;
+}
+
+.login-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #dce7df;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+
+.login-box h1 {
+    color: #294d3e;
+    margin-bottom: 10px;
+}
+
+.login-box .welcome {
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.login-box label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 5px;
+    font-size: 14px;
+}
+
+.login-box input,
+.login-box select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd8cf;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.password-row {
+    display: flex;
+    gap: 5px;
+}
+
+.password-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.password-row button {
+    padding: 8px 12px;
+    background: #294d3e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 30px;
+    background: #294d3e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background: #3e7059;
+}
+
+.admin-info {
+    background: #f0f5f1;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+/* ส่วนท้าย */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #294d3e;
+    color: white;
+    font-size: 13px;
+    margin-top: 40px;
+}
+
+/* รองรับโทรศัพท์ */
+@media (max-width: 600px) {
+    nav ul {
+        gap: 12px;
+    }
+
+    .slider {
+        height: 220px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+}
+/* กรอบรูปภาพ */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* ขนาดรูปภาพ */
+.slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ปุ่มลูกศร */
+.slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* ปุ่มซ้าย */
+.prev {
+    left: 12px;
+}
+
+/* ปุ่มขวา */
+.next {
+    right: 12px;
+}
+
+/* จุดเลือกภาพ */
+.dot {
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    vertical-align: middle;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ส่วนหัวเว็บไซต์ -->
+<header>
+    <p class="site-name">เที่ยวบ้านเรา</p>
+
+    <nav aria-label="เมนูหลัก">
+        <ul>
+            <li><a href="#" onclick="showHome()">หน้าแรก</a></li>
+            <li><a href="places.html">ที่เที่ยว</a></li>
+            <li><a href="food.html">อาหาร</a></li>
+            <li><a href="plan.html">วางแผนเที่ยว</a></li>
+            <li><a href="travel.html">ข้อมูลการเดินทาง</a></li>
+            <li><a href="#" onclick="showLogin()">เข้าสู่ระบบ</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- หน้าแรก -->
+<main id="homePage">
+
+    <h1>เที่ยวบ้านเราในหนึ่งวัน</h1>
+
+    <h2>สถานที่ท่องเที่ยวจังหวัดประจวบคีรีขันธ์</h2>
+
+  <!-- สไลด์รูปภาพ -->
+<div class="slider">
+	<img id="slideImage"src="images/aomanow.jpg">
+	<img id="slideImage"src="images/Kaow.jpg">
+	<img id="slideImage"src="images/KLM.jpg">
+	<img id="slideImage"src="images/lukmuang.jpg">
+	<img id="slideImage"src="images/sapanpla.jpg">
+</div>
+
+<!-- จุดเลือกภาพ -->
+<div class="dots">
+    <button class="dot active" onclick="showSlide(0)"></button>
+    <button class="dot" onclick="showSlide(1)"></button>
+    <button class="dot" onclick="showSlide(2)"></button>
+    <button class="dot" onclick="showSlide(3)"></button>
+    <button class="dot" onclick="showSlide(4)"></button>
+</div>
+
+    <p class="description">
+        ชวนเดินตลาด ชิมอาหารพื้นถิ่น และพักชมวิวในชุมชน
+    </p>
+
+    <section class="card">
+        <h2>เริ่มจากจุดที่คุณสนใจ</h2>
+
+        <p>
+            เลือกสถานที่ที่อยากไป แล้วจัดเส้นทางให้เหมาะกับเวลาของคุณ
+            พบกับสถานที่ท่องเที่ยว อาหารพื้นบ้าน
+            และข้อมูลการเดินทางในจังหวัดประจวบคีรีขันธ์
+        </p>
+
+        <a class="button" href="places.html">
+            ดูแหล่งท่องเที่ยว
+        </a>
+    </section>
+
+</main>
+
+<!-- หน้าเข้าสู่ระบบ -->
+<section id="loginPage">
+
+    <div class="login-box">
+
+        <h1>เข้าสู่ระบบ</h1>
+
+        <p class="welcome">
+            ยินดีต้อนรับสู่เว็บไซต์เที่ยวบ้านเรา
+        </p>
+
+        <form onsubmit="login(event)">
+
+            <label>ชื่อผู้ใช้</label>
+            <input type="text"
+                   id="username"
+                   placeholder="กรอกชื่อผู้ใช้"
+                   required>
+
+            <label>รหัสผ่าน</label>
+
+            <div class="password-row">
+                <input type="password"
+                       id="password"
+                       placeholder="กรอกรหัสผ่าน"
+                       required>
+
+                <button type="button" onclick="showPassword()">
+                    แสดง
+                </button>
+            </div>
+
+            <label>ประเภทผู้ใช้งาน</label>
+
+            <select id="userType">
+                <option value="สมาชิก (User)">สมาชิก (User)</option>
+                <option value="ผู้ดูแลระบบ (Admin)">ผู้ดูแลระบบ (Admin)</option>
+            </select>
+
+            <button type="submit" class="login-button">
+                เข้าสู่ระบบ
+            </button>
+
+        </form>
+
+        <div class="admin-info">
+            <strong>บัญชีทดลองสำหรับผู้ปฏิบัติ</strong>
+            <p>Admin: admin / admin123</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ส่วนท้ายเว็บไซต์ -->
+<footer>
+    <p>
+        จัดทำโดย นายวรวุฒิ ศรีสวัสดิ์071
+        | ใบงานฝึกปฏิบัติวิชาการสร้างเว็บไซต์ทางธุรกิจ
+    </p>
+</footer>
+
+<script>
+
+// แสดงหน้าแรก
+function showHome() {
+    document.getElementById("homePage").style.display = "block";
+    document.getElementById("loginPage").style.display = "none";
+}
+
+// แสดงหน้าเข้าสู่ระบบ
+function showLogin() {
+    document.getElementById("homePage").style.display = "none";
+    document.getElementById("loginPage").style.display = "block";
+}
+
+// แสดงหรือซ่อนรหัสผ่าน
+function showPassword() {
+    let password = document.getElementById("password");
+
+    if (password.type === "password") {
+        password.type = "text";
+    } else {
+        password.type = "password";
+    }
+}
+
+// ระบบเข้าสู่ระบบตัวอย่าง
+function login(event) {
+    event.preventDefault();
+
+    let username = document.getElementById("username").value;
+    let userType = document.getElementById("userType").value;
+
+    alert("ยินดีต้อนรับ " + username +
+          "\nประเภทผู้ใช้งาน: " + userType);
+}
+// รายชื่อไฟล์รูปภาพทั้งหมด
+const images = [
+    "images/aomanow.jpg",
+    "images/Kaow.jpg",
+    "images/KLM.jpg",
+    "images/lukmuang.jpg",
+    "images/sapanpla.jpg"
+];
+
+// ชื่อสถานที่
+const captions = [
+    "อ่าวมะนาว",
+    "เขาช่องกระจก",
+    "เขาล้อมหมวก",
+    "ศาลหลักเมือง",
+    "สะพานปลา"
+];
+
+let currentSlide = 0;
+
+// ฟังก์ชันแสดงรูปภาพ
+function showSlide(index) {
+
+    currentSlide =
+        (index + images.length) % images.length;
+
+    const image =
+        document.getElementById("slideImage");
+
+    image.src = images[currentSlide];
+    image.alt = captions[currentSlide];
+
+    const dots = document.querySelectorAll(".dots .dot");
+
+    dots.forEach((dot, i) => {
+        dot.classList.toggle(
+            "active", i === currentSlide
+        );
+    });
+}
+
+// ฟังก์ชันเลื่อนภาพ
+function changeSlide(step) {
+    showSlide(currentSlide + step);
+}
+
+// เปลี่ยนรูปอัตโนมัติทุก 4 วินาที
+setInterval(function() {
+    changeSlide(1);
+}, 4000);
+</script>
+
+</body>
+</html>

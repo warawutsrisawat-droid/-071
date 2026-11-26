@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ที่เที่ยว | เที่ยวบ้านเรา</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ตั้งค่าพื้นฐานเว็บไซต์ */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F3F6F3;
+            color: #294D3E;
+            line-height: 1.7;
+        }
+
+        /* ส่วนหัวและส่วนท้ายเว็บไซต์ */
+        header, footer {
+            background: #294D3E;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .site-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 12px;
+        }
+
+        /* เมนูด้านบน */
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 8px;
+        }
+
+        nav a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        nav a:hover,
+        nav a[aria-current="page"] {
+            background: #E5EFE8;
+            color: #294D3E;
+        }
+
+       /* จัดเนื้อหาให้อยู่ตรงกลาง */
+main {
+    width: 95%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 15px;
+}
+
+        /* หัวข้อใหญ่ของหน้าเว็บไซต์ */
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #294D3E;
+            margin-bottom: 10px;
+        }
+
+        /* ข้อความใต้หัวข้อใหญ่ */
+        .subtitle {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 30px;
+        }
+
+      /* จัดสถานที่เรียงลงมาเป็นแนวตั้ง */
+.places-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+      /* กรอบสถานที่ท่องเที่ยว */
+.place-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #DCE7DF;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+/* เอฟเฟกต์เมื่อเมาส์ชี้ */
+.place-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+}
+
+      /* รูปภาพสถานที่ท่องเที่ยว */
+.place-card img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 0;
+}
+
+        /* พื้นที่ข้อความ */
+        .place-info {
+            padding: 25px;
+        }
+
+      /* หัวข้อหลักชื่อสถานที่ */
+.place-info h2 {
+    font-size: 30px;
+    color: #294D3E;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #DCE7DF;
+    text-align: left;
+}
+
+       /* หัวข้อย่อยของสถานที่ */
+.place-info h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #294D3E;
+
+    background: linear-gradient(
+        to right,
+        #E5EFE8,
+        #F3F6F3
+    );
+
+    border-left: 5px solid #294D3E;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+     /* ข้อความอธิบาย */
+.place-info p {
+    font-size: 16px;
+    color: #444444;
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
+
+/* ข้อความแบบรายการ */
+.place-info li {
+    font-size: 16px;
+    color: #444444;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+        /* ข้อความแต่ละรายการ */
+        .place-info li {
+            font-size: 15px;
+            color: #444444;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        /* รายการย่อย */
+        .place-info li ul {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            list-style-type: circle;
+        }
+
+        /* ข้อความตัวหนา */
+        .place-info strong {
+            color: #294D3E;
+            font-weight: bold;
+        }
+
+        /* ปุ่มกลับหน้าแรก */
+        .back-button {
+            display: inline-block;
+            background: #294D3E;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+            background: #3E7059;
+        }
+
+        /* ส่วนท้ายเว็บไซต์ */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        /* รองรับหน้าจอโทรศัพท์ */
+        @media (max-width: 700px) {
+
+            .places-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .place-card img {
+                height: 230px;
+            }
+
+            .place-info {
+                padding: 18px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            .place-info h2 {
+                font-size: 22px;
+            }
+        }
+
+/* ===================================== */
+/* ตกแต่งหน้าที่เที่ยวรูปแบบใหม่ แนวตั้ง */
+/* ===================================== */
+
+/* จัดพื้นที่เนื้อหาหลัก */
+main {
+    width: 95%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 15px;
+}
+
+/* หัวข้อใหญ่ของหน้าเว็บไซต์ */
+h1 {
+    font-size: 32px;
+    color: #294D3E;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* ข้อความแนะนำใต้หัวข้อ */
+.subtitle {
+    font-size: 16px;
+    text-align: center;
+    color: #666666;
+    margin-bottom: 40px;
+}
+
+/* จัดสถานที่เรียงลงมาแนวตั้ง */
+.places-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* กรอบสถานที่ท่องเที่ยว */
+.place-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #DCE7DF;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+/* เอฟเฟกต์เมื่อเมาส์ชี้ */
+.place-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+}
+
+/* รูปภาพสถานที่ */
+.place-card img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 0;
+}
+
+/* พื้นที่ข้อความ */
+.place-info {
+    padding: 35px 40px;
+}
+
+/* หัวข้อหลักชื่อสถานที่ */
+.place-info h2 {
+    font-size: 30px;
+    color: #294D3E;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #DCE7DF;
+    text-align: left;
+}
+
+/* หัวข้อย่อย */
+.place-info h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #294D3E;
+
+    background: linear-gradient(
+        to right,
+        #E5EFE8,
+        #F3F6F3
+    );
+
+    border-left: 5px solid #294D3E;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* ข้อความอธิบาย */
+.place-info p {
+    font-size: 16px;
+    color: #444444;
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
+
+/* รายการข้อมูล */
+.place-info ul {
+    padding-left: 25px;
+    margin-bottom: 20px;
+}
+
+/* ข้อความแต่ละรายการ */
+.place-info li {
+    font-size: 16px;
+    color: #444444;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+/* ข้อความสำคัญตัวหนา */
+.place-info strong {
+    color: #294D3E;
+    font-weight: bold;
+}
+
+/* ปุ่มกลับหน้าแรก */
+.back-button {
+    display: inline-block;
+    background: #294D3E;
+    color: #FFFFFF;
+    padding: 13px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    margin-top: 35px;
+    font-weight: bold;
+}
+
+.back-button:hover {
+    background: #3E7059;
+}
+
+/* รองรับหน้าจอโทรศัพท์ */
+@media (max-width: 700px) {
+
+    main {
+        width: 96%;
+        padding: 10px;
+        margin: 20px auto;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .places-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .place-card img {
+        height: 250px;
+    }
+
+    .place-info {
+        padding: 20px;
+    }
+
+    .place-info h2 {
+        font-size: 24px;
+    }
+
+    .place-info h3 {
+        font-size: 18px;
+    }
+
+    .place-info p,
+    .place-info li {
+        font-size: 15px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+<!-- ส่วนหัวเว็บไซต์ -->
+<header>
+
+    <p class="site-name">เที่ยวบ้านเรา</p>
+
+    <!-- เมนูนำทาง -->
+    <nav>
+        <ul>
+            <li><a href="index.html">หน้าแรก</a></li>
+
+            <li><a href="places.html"
+                   aria-current="page">ที่เที่ยว</a></li>
+
+            <li><a href="food.html">อาหาร</a></li>
+
+            <li><a href="plan.html">วางแผนเที่ยว</a></li>
+
+            <li><a href="travel.html">ข้อมูลการเดินทาง</a></li>
+
+            <li><a href="index.html">เข้าสู่ระบบ</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<!-- เนื้อหาหลักของเว็บไซต์ -->
+<main>
+
+    <!-- หัวข้อใหญ่ -->
+    <h1>สถานที่ท่องเที่ยวจังหวัดประจวบคีรีขันธ์</h1>
+
+    <!-- ข้อความแนะนำ -->
+    <p class="subtitle">
+        สัมผัสธรรมชาติ ชมวิวทะเล
+        และเรียนรู้วัฒนธรรมท้องถิ่น
+    </p>
+
+    <div class="places-grid">
+
+        <!-- สถานที่ที่ 1 : เขาช่องกระจก -->
+        <div class="place-card">
+
+            <!-- รูปภาพเขาช่องกระจก -->
+            <img src="images/Kaow.jpg"
+                 alt="เขาช่องกระจก">
+
+            <div class="place-info">
+
+                <!-- หัวข้อหลัก -->
+                <h2>เขาช่องกระจก</h2>
+
+                <!-- ข้อความแนะนำสถานที่ -->
+                <p>
+                    เขาช่องกระจกเป็นสถานที่ท่องเที่ยวสำคัญ
+                    และเป็นสัญลักษณ์ของเมืองประจวบคีรีขันธ์
+                    ตั้งอยู่บริเวณด้านหลังศาลากลางจังหวัด
+                    ในเขตเทศบาลเมืองประจวบคีรีขันธ์
+                </p>
+
+                <!-- หัวข้อย่อยที่ 1 -->
+                <h3>ข้อมูลสำคัญ</h3>
+
+                <!-- ข้อความรายละเอียด -->
+                <ul>
+
+                    <li>
+                        <strong>ลักษณะภูมิประเทศ:</strong>
+                        เป็นภูเขาขนาดย่อม
+                        สูงประมาณ 245 เมตรจากระดับน้ำทะเล
+                        หรือประมาณ 94 เมตรจากพื้นราบใกล้ชายฝั่ง
+                    </li>
+
+                    <li>
+                        <strong>ที่มาของชื่อ:</strong>
+                        บริเวณด้านทิศเหนือของภูเขา
+                        มีช่องทะลุโปร่ง
+                        มองดูคล้ายกับกรอบของกระจก
+                    </li>
+
+                    <li>
+                        <strong>การเดินทางขึ้นไปด้านบน:</strong>
+                        ต้องเดินขึ้นบันไดคอนกรีตจำนวน
+                        <strong>396 ขั้น</strong>
+                    </li>
+
+                    <li>
+                        <strong>เวลาเปิดทำการ:</strong>
+                        เปิดให้เข้าชมทุกวัน
+                        เวลา <strong>05.00 – 20.00 น.</strong>
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 2 -->
+                <h3>สิ่งที่น่าสนใจบนเขาช่องกระจก</h3>
+
+                <!-- ข้อความรายละเอียด -->
+                <ul>
+
+                    <li>
+                        <strong>วัดธรรมิการามวรวิหาร:</strong>
+                        ตั้งอยู่บริเวณเขาช่องกระจก
+                        เป็นที่ประดิษฐานรอยพระพุทธบาทจำลอง
+                        และพระบรมสารีริกธาตุ
+                    </li>
+
+                    <li>
+                        <strong>ต้นพระศรีมหาโพธิ์:</strong>
+                        พระบาทสมเด็จพระบรมชนกาธิเบศร
+                        มหาภูมิพลอดุลยเดชมหาราช
+                        บรมนาถบพิตร
+                        ได้เสด็จฯ มาทรงประกอบพิธีบรรจุ
+                        พระบรมสารีริกธาตุและทรงปลูกไว้
+                        เมื่อวันที่ 12 มิถุนายน พ.ศ. 2501
+                        โดยมีงานฉลองในวันที่ 12 มิถุนายน
+                        ของทุกปี
+                    </li>
+
+                    <li>
+                        <strong>จุดชมวิว 360 องศา:</strong>
+                        สามารถมองเห็นทัศนียภาพของตัวเมือง
+                        ประจวบคีรีขันธ์
+                        และโค้งอ่าวสำคัญทั้ง 3 อ่าว
+                        ได้แก่ อ่าวประจวบ อ่าวมะนาว
+                        และอ่าวน้อย
+                    </li>
+
+                    <li>
+                        <strong>
+                            ถ้ำเทวาสถิตย์และจุดชมพระอาทิตย์ขึ้น:
+                        </strong>
+                        เป็นจุดชมแสงแรกและพระอาทิตย์ขึ้น
+                        ในยามเช้าที่สวยงาม
+                        โดยพระอาทิตย์จะขึ้นตรงบริเวณช่องเขา
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- สถานที่ที่ 2 : ศาลหลักเมือง -->
+        <div class="place-card">
+
+            <!-- รูปภาพศาลหลักเมือง -->
+            <img src="images/lukmuang.jpg"
+                 alt="ศาลหลักเมืองประจวบคีรีขันธ์">
+
+            <div class="place-info">
+
+                <!-- หัวข้อหลัก -->
+                <h2>ศาลหลักเมืองประจวบคีรีขันธ์</h2>
+
+                <!-- ข้อความแนะนำสถานที่ -->
+                <p>
+                    ศาลหลักเมืองประจวบคีรีขันธ์
+                    เป็นสถานที่สำคัญคู่บ้านคู่เมือง
+                    มีสถาปัตยกรรมที่สวยงาม
+                    และเป็นสถานที่เคารพสักการะของประชาชน
+                </p>
+
+                <!-- หัวข้อย่อยที่ 1 -->
+                <h3>ข้อมูลสำคัญ</h3>
+
+                <!-- ข้อความรายละเอียด -->
+                <ul>
+
+                    <li>
+                        <strong>ที่ตั้ง:</strong>
+                        ถนนสละชีพ ตำบลประจวบคีรีขันธ์
+                        อำเภอเมืองประจวบคีรีขันธ์
+                        ตั้งอยู่ตรงข้ามศาลากลางจังหวัด
+                        ประจวบคีรีขันธ์
+                        และใกล้กับเขาช่องกระจก
+                    </li>
+
+                    <li>
+                        <strong>เวลาทำการ:</strong>
+                        เปิดทุกวัน ตั้งแต่เวลา
+                        <strong>08.00 – 19.00 น.</strong>
+                    </li>
+
+                    <li>
+                        <strong>สถาปัตยกรรม:</strong>
+                        เป็นอาคารทรงจตุรมุขยอดปรางค์ 9 ชั้น
+                        งดงามด้วยศิลปะแบบลพบุรี
+                        ผสมผสานศิลปะไทย
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 2 -->
+                <h3>องค์หลักเมือง (จตุโชค)</h3>
+
+                <!-- ข้อความรายละเอียด -->
+                <ul>
+
+                    <li>
+                        ทำจากไม้ตะเคียน
+                        ที่ได้มาจากอำเภอกุยบุรี
+                    </li>
+
+                    <li>
+                        ส่วนยอดแกะสลักเป็นศิลปะศรีวิชัย
+                        4 เศียร 4 พักตร์
+                        ลงรักปิดทองและประดับอัญมณี
+                    </li>
+
+                    <li>
+                        <strong>ขนาดองค์หลักเมือง:</strong>
+                        มีความสูง 2.74 เมตร
+                        และเส้นผ่านศูนย์กลาง 0.37 เมตร
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 3 -->
+                <h3>ประวัติการสร้าง</h3>
+
+                <!-- ข้อความรายละเอียด -->
+                <ul>
+
+                    <li>
+                        <strong>วันที่ 4 มีนาคม พ.ศ. 2536:</strong>
+                        มีการวางศิลาฤกษ์
+                        ในสมัยที่ร้อยตำรวจเอก
+                        อำนวย ไทยานนท์
+                        เป็นผู้ว่าราชการจังหวัด
+                    </li>
+
+                    <li>
+                        <strong>
+                            วันที่ 8 ธันวาคม พ.ศ. 2536:
+                        </strong>
+                        พระบาทสมเด็จพระบรมชนกาธิเบศร
+                        มหาภูมิพลอดุลยเดชมหาราช
+                        บรมนาถบพิตร
+                        ทรงพระกรุณาโปรดเกล้าฯ
+                        ให้ประกอบพิธีทรงสุหร่ายและเจิมยอด
+                    </li>
+
+                    <li>
+                        <strong>
+                            วันที่ 20 สิงหาคม พ.ศ. 2537:
+                        </strong>
+                        สมเด็จพระบรมโอรสาธิราชฯ
+                        สยามมกุฎราชกุมาร
+                        (พระอิสริยยศในขณะนั้น)
+                        เสด็จพระราชดำเนินแทนพระองค์
+                        มาทรงประกอบพิธีเปิดศาลหลักเมือง
+                        อย่างเป็นทางการ
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+   <!-- ปุ่มจัดแผนเที่ยวหนึ่งวัน -->
+<a class="back-button" href="plan.html">
+    จัดแผนเที่ยวหนึ่งวัน →
+</a>
+</main>
+
+<!-- ส่วนท้ายเว็บไซต์ -->
+<footer>
+
+    <p>
+        จัดทำโดย นายวรวุฒิ ศรีสวัสดิ์071
+        | ใบงานฝึกปฏิบัติวิชาการสร้างเว็บไซต์ทางธุรกิจ
+    </p>
+
+</footer>
+
+</body>
+</html>

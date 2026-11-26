@@ -1,0 +1,816 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อาหาร | เที่ยวบ้านเรา</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ตั้งค่าพื้นฐานเว็บไซต์ */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F3F6F3;
+            color: #294D3E;
+            line-height: 1.7;
+        }
+
+        /* ส่วนหัวและส่วนท้ายเว็บไซต์ */
+        header, footer {
+            background: #294D3E;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .site-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 12px;
+        }
+
+        /* เมนูด้านบน */
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 8px;
+        }
+
+        nav a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        nav a:hover,
+        nav a[aria-current="page"] {
+            background: #E5EFE8;
+            color: #294D3E;
+        }
+
+        /* พื้นที่เนื้อหาหลัก */
+        main {
+            width: 95%;
+            max-width: 1350px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        /* หัวข้อใหญ่ของเว็บไซต์ */
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #294D3E;
+            margin-bottom: 10px;
+        }
+
+        /* ข้อความใต้หัวข้อใหญ่ */
+        .subtitle {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 30px;
+        }
+
+        /* จัดอาหารเป็น 3 คอลัมน์ */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        /* กรอบข้อมูลอาหาร */
+        .food-card {
+            background: #FFFFFF;
+            border: 1px solid #DCE7DF;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        /* ขนาดรูปภาพ */
+        .food-card img {
+            display: block;
+            width: 100%;
+            height: 280px;
+            object-fit: contain;
+            background: #E5EFE8;
+            border-radius: 0;
+        }
+
+        /* พื้นที่ข้อความ */
+        .food-info {
+            padding: 22px;
+        }
+
+        /* หัวข้อหลักชื่ออาหาร */
+        .food-info h2 {
+            font-size: 23px;
+            color: #294D3E;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #DCE7DF;
+        }
+
+        /* หัวข้อย่อย */
+        .food-info h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #294D3E;
+            background: #E5EFE8;
+            border-left: 5px solid #294D3E;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        /* ข้อความอธิบาย */
+        .food-info p {
+            font-size: 15px;
+            color: #444444;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* รายการข้อมูล */
+        .food-info ul {
+            padding-left: 22px;
+            margin-bottom: 15px;
+        }
+
+        /* ข้อความแต่ละรายการ */
+        .food-info li {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #444444;
+            margin-bottom: 12px;
+        }
+
+        /* ข้อความตัวหนา */
+        .food-info strong {
+            color: #294D3E;
+            font-weight: bold;
+        }
+
+        /* ตารางราคาอาหาร */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            margin-top: 15px;
+        }
+
+        .price-table th {
+            background: #294D3E;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .price-table td {
+            padding: 10px;
+            border-bottom: 1px solid #DCE7DF;
+            color: #444444;
+        }
+
+        .price-table tr:nth-child(even) {
+            background: #F3F6F3;
+        }
+
+        /* กล่องหมายเหตุ */
+        .note {
+            background: #F3F6F3;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        /* ปุ่มกลับหน้าแรก */
+        .back-button {
+            display: inline-block;
+            background: #294D3E;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+            background: #3E7059;
+        }
+
+        /* ส่วนท้ายเว็บไซต์ */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        /* รองรับหน้าจอแท็บเล็ต */
+        @media (max-width: 1000px) {
+
+            .food-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        /* รองรับหน้าจอโทรศัพท์ */
+        @media (max-width: 700px) {
+
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .food-card img {
+                height: 280px;
+            }
+
+            .food-info {
+                padding: 18px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+        }
+/* จัดความกว้างของหน้าอาหาร */
+main {
+    width: 95%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 15px;
+}
+
+/* จัดอาหารเรียงแนวตั้ง */
+.food-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+/* ตกแต่งกรอบอาหาร */
+.food-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #DCE7DF;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* ปรับขนาดรูปภาพ */
+.food-card img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* รูปร้านกาแฟให้แสดงครบ */
+.food-card:nth-child(2) img {
+    object-fit: contain;
+}
+
+/* จัดระยะห่างของเนื้อหา */
+.food-info {
+    padding: 35px 40px;
+}
+
+/* ตกแต่งหัวข้อหลัก */
+.food-info h2 {
+    font-size: 30px;
+    color: #294D3E;
+    text-align: left;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #DCE7DF;
+}
+
+/* ตกแต่งหัวข้อย่อย */
+.food-info h3 {
+    font-size: 20px;
+    color: #294D3E;
+    background: linear-gradient(
+        to right,
+        #E5EFE8,
+        #F3F6F3
+    );
+    border-left: 5px solid #294D3E;
+    border-radius: 8px;
+    padding: 15px 20px;
+}
+
+/* ตกแต่งข้อความ */
+.food-info p,
+.food-info li {
+    font-size: 16px;
+    color: #444444;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+/* ตกแต่งตารางราคา */
+.price-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #DCE7DF;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.price-table th {
+    background: #294D3E;
+    color: white;
+    padding: 15px;
+}
+
+.price-table td {
+    padding: 15px;
+}
+
+/* ตกแต่งกล่องหมายเหตุ */
+.note {
+    background: #FFF5E3;
+    border-left: 5px solid #D6A65A;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* รองรับหน้าจอโทรศัพท์ */
+@media (max-width: 700px) {
+    .food-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .food-card img {
+        height: 250px;
+    }
+
+    .food-info {
+        padding: 20px;
+    }
+
+    .food-info h2 {
+        font-size: 24px;
+    }
+
+    .food-info h3 {
+        font-size: 18px;
+    }
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ส่วนหัวเว็บไซต์ -->
+<header>
+
+    <p class="site-name">เที่ยวบ้านเรา</p>
+
+    <!-- เมนูนำทาง -->
+    <nav>
+        <ul>
+
+            <li><a href="index.html">หน้าแรก</a></li>
+
+            <li><a href="places.html">ที่เที่ยว</a></li>
+
+            <li><a href="food.html"
+                   aria-current="page">อาหาร</a></li>
+
+            <li><a href="plan.html">วางแผนเที่ยว</a></li>
+
+            <li><a href="travel.html">ข้อมูลการเดินทาง</a></li>
+
+            <li><a href="index.html">เข้าสู่ระบบ</a></li>
+
+        </ul>
+    </nav>
+
+</header>
+
+<!-- เนื้อหาหลัก -->
+<main>
+
+    <!-- หัวข้อใหญ่ -->
+    <h1>อาหารและของฝากจังหวัดประจวบคีรีขันธ์</h1>
+
+    <!-- ข้อความแนะนำ -->
+    <p class="subtitle">
+        ชิมอาหารพื้นเมือง อิ่มอร่อยกับอาหารทะเล
+        สัมผัสวิถีชีวิตชุมชน และเลือกซื้อของฝากจากท้องถิ่น
+    </p>
+
+    <div class="food-grid">
+
+        <!-- ================================= -->
+        <!-- หมวดที่ 1 ตลาดอาหารและของฝาก -->
+        <!-- ================================= -->
+
+        <div class="food-card">
+
+            <!-- รูปภาพตลาด -->
+            <img src="images/market1.jpg"
+                 alt="ตลาดอาหารพื้นเมืองและของฝาก">
+
+            <div class="food-info">
+
+                <!-- หัวข้อหลัก -->
+                <h2>ตลาดอาหารพื้นเมืองและของฝาก</h2>
+
+                <!-- ข้อความแนะนำ -->
+                <p>
+                    ตลาดอาหารพื้นเมืองเป็นแหล่งรวมสินค้า
+                    และอาหารจากชุมชน มีทั้งอาหารทะเลแปรรูป
+                    อาหารแห้ง น้ำพริก และของฝากหลากหลายชนิด
+                    เหมาะสำหรับนักท่องเที่ยวที่ต้องการ
+                    เลือกซื้อสินค้าและสัมผัสวิถีชีวิตท้องถิ่น
+                </p>
+
+                <!-- หัวข้อย่อยที่ 1 -->
+                <h3>อาหารและของฝากแนะนำ</h3>
+
+                <!-- ข้อความรายละเอียด -->
+                <ul>
+
+                    <li>
+                        <strong>กุ้งแห้ง:</strong>
+                        อาหารทะเลแปรรูปที่สามารถนำมา
+                        ประกอบอาหารได้หลากหลายชนิด
+                    </li>
+
+                    <li>
+                        <strong>ปลาแห้ง:</strong>
+                        ผลิตภัณฑ์จากปลาที่สามารถเก็บรักษา
+                        ไว้รับประทานได้นาน
+                    </li>
+
+                    <li>
+                        <strong>ปลาหมึกแห้ง:</strong>
+                        เหมาะสำหรับนำไปประกอบอาหาร
+                        หรือซื้อเป็นของฝาก
+                    </li>
+
+                    <li>
+                        <strong>น้ำพริก:</strong>
+                        มีให้เลือกหลายชนิด เช่น
+                        น้ำพริกกุ้งและน้ำพริกปลาทู
+                    </li>
+
+                    <li>
+                        <strong>กุนเชียง:</strong>
+                        อาหารแปรรูปที่สามารถนำไปทอด
+                        หรือประกอบอาหารได้หลายเมนู
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 2 -->
+                <h3>จุดเด่นของตลาด</h3>
+
+                <ul>
+
+                    <li>
+                        มีอาหารและของฝากให้เลือกหลากหลาย
+                    </li>
+
+                    <li>
+                        สามารถเลือกซื้อสินค้าจากร้านค้า
+                        ภายในตลาดได้โดยตรง
+                    </li>
+
+                    <li>
+                        ช่วยสนับสนุนผู้ประกอบการท้องถิ่น
+                        และสร้างรายได้ให้แก่ชุมชน
+                    </li>
+
+                    <li>
+                        เหมาะสำหรับซื้อของฝาก
+                        ให้ครอบครัวและเพื่อน
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 3 -->
+                <h3>คำแนะนำในการเลือกซื้อ</h3>
+
+                <p>
+                    ควรตรวจสอบความสะอาดของสินค้า
+                    บรรจุภัณฑ์ วันหมดอายุ
+                    และเปรียบเทียบราคาก่อนตัดสินใจซื้อ
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ================================= -->
+        <!-- หมวดที่ 2 ต่ายกาแฟโบราณ -->
+        <!-- ================================= -->
+
+        <div class="food-card">
+
+            <!-- รูปภาพร้านกาแฟ -->
+            <img src="images/pic2.png"
+                 alt="ร้านต่ายกาแฟโบราณ">
+
+            <div class="food-info">
+
+                <!-- หัวข้อหลัก -->
+                <h2>ต่ายกาแฟโบราณ</h2>
+
+                <!-- ข้อความแนะนำ -->
+                <p>
+                    ร้านกาแฟโบราณที่มีเมนูอาหารเช้า
+                    และเครื่องดื่มแบบดั้งเดิม
+                    มีทั้งกาแฟ ชาไทย โอวัลติน และไข่ลวก
+                    เหมาะสำหรับแวะรับประทานอาหารเช้า
+                    ก่อนออกเดินทางท่องเที่ยว
+                </p>
+
+                <!-- หัวข้อย่อยที่ 1 -->
+                <h3>เมนูแนะนำ</h3>
+
+                <ul>
+
+                    <li>
+                        <strong>ไข่ลวก:</strong>
+                        เมนูอาหารเช้าที่รับประทาน
+                        คู่กับเครื่องดื่มได้
+                    </li>
+
+                    <li>
+                        <strong>กาแฟโบราณ:</strong>
+                        กาแฟแบบดั้งเดิมที่มีกลิ่นหอม
+                        และรสชาติเข้มข้น
+                    </li>
+
+                    <li>
+                        <strong>ชาไทย:</strong>
+                        เครื่องดื่มที่มีกลิ่นหอม
+                        และรสชาติหวานมัน
+                    </li>
+
+                    <li>
+                        <strong>โอวัลติน:</strong>
+                        เครื่องดื่มรสมอลต์
+                        รับประทานคู่กับอาหารเช้าได้
+                    </li>
+
+                    <li>
+                        <strong>โอเลี้ยง:</strong>
+                        เครื่องดื่มกาแฟดำเย็นแบบโบราณ
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 2 -->
+                <h3>ราคาอาหารและเครื่องดื่ม</h3>
+
+                <!-- ตารางราคา -->
+                <table class="price-table">
+
+                    <thead>
+                        <tr>
+                            <th>เมนู</th>
+                            <th>ราคา</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>เนสกาแฟ</td>
+                            <td>20 บาท</td>
+                        </tr>
+
+                        <tr>
+                            <td>กาแฟโบราณ</td>
+                            <td>20 บาท</td>
+                        </tr>
+
+                        <tr>
+                            <td>ชาไทย</td>
+                            <td>20 บาท</td>
+                        </tr>
+
+                        <tr>
+                            <td>โอวัลติน</td>
+                            <td>20 บาท</td>
+                        </tr>
+
+                        <tr>
+                            <td>ไข่ลวก 2 ฟอง</td>
+                            <td>20 บาท</td>
+                        </tr>
+
+                        <tr>
+                            <td>นมหมี</td>
+                            <td>25 บาท</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <!-- หัวข้อย่อยที่ 3 -->
+                <h3>จุดเด่นของร้าน</h3>
+
+                <ul>
+
+                    <li>
+                        มีอาหารเช้าและเครื่องดื่มแบบดั้งเดิม
+                    </li>
+
+                    <li>
+                        ราคาเมนูตามภาพเริ่มต้น 20 บาท
+                    </li>
+
+                    <li>
+                        เหมาะสำหรับแวะรับประทานอาหารเช้า
+                    </li>
+
+                    <li>
+                        ได้สัมผัสบรรยากาศร้านค้าท้องถิ่น
+                    </li>
+
+                </ul>
+
+                <!-- หมายเหตุ -->
+                <div class="note">
+                    <p>
+                        <strong>หมายเหตุ:</strong>
+                        ราคาอ้างอิงจากภาพเมนู
+                        และอาจมีการเปลี่ยนแปลง
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================================= -->
+        <!-- หมวดที่ 3 อาหารทะเลสด -->
+        <!-- ================================= -->
+
+        <div class="food-card">
+
+            <!-- รูปภาพอาหารทะเล -->
+            <img src="images/อาหารทะเล.jpg">
+            <div class="food-info">
+
+                <!-- หัวข้อหลัก -->
+                <h2>อาหารทะเลสด</h2>
+
+                <!-- ข้อความแนะนำ -->
+                <p>
+                    จังหวัดประจวบคีรีขันธ์เป็นจังหวัดชายทะเล
+                    ที่มีอาหารทะเลหลากหลายชนิด
+                    ทั้งกุ้ง ปู ปลา หอย และปลาหมึก
+                    สามารถนำมาประกอบอาหารได้หลายเมนู
+                    นักท่องเที่ยวสามารถสัมผัสรสชาติ
+                    อาหารทะเลและอาหารท้องถิ่นได้
+                </p>
+
+                <!-- หัวข้อย่อยที่ 1 -->
+                <h3>เมนูอาหารทะเลแนะนำ</h3>
+
+                <ul>
+
+                    <li>
+                        <strong>กุ้งเผา:</strong>
+                        กุ้งย่างหอม ๆ รับประทานคู่กับ
+                        น้ำจิ้มซีฟู้ดรสจัดจ้าน
+                    </li>
+
+                    <li>
+                        <strong>ปูม้านึ่ง:</strong>
+                        เนื้อปูมีรสหวานตามธรรมชาติ
+                        รับประทานคู่กับน้ำจิ้มซีฟู้ด
+                    </li>
+
+                    <li>
+                        <strong>ปลาหมึกย่าง:</strong>
+                        ปลาหมึกย่างที่มีกลิ่นหอม
+                        และเนื้อสัมผัสเหนียวนุ่ม
+                    </li>
+
+                    <li>
+                        <strong>ปลากะพงทอดน้ำปลา:</strong>
+                        ปลาทอดกรอบราดด้วยน้ำปลาปรุงรส
+                    </li>
+
+                    <li>
+                        <strong>ต้มยำทะเล:</strong>
+                        อาหารทะเลปรุงรสเปรี้ยวเผ็ด
+                        พร้อมสมุนไพรไทย
+                    </li>
+
+                    <li>
+                        <strong>หอยเชลล์ย่าง:</strong>
+                        หอยเชลล์ปรุงสุก
+                        มีกลิ่นหอมและรสชาติกลมกล่อม
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 2 -->
+                <h3>จุดเด่นของอาหารทะเล</h3>
+
+                <ul>
+
+                    <li>
+                        มีวัตถุดิบและเมนูให้เลือกหลากหลาย
+                    </li>
+
+                    <li>
+                        มีรสชาติเป็นเอกลักษณ์
+                        ของอาหารท้องถิ่น
+                    </li>
+
+                    <li>
+                        สามารถรับประทานอาหาร
+                        พร้อมชมบรรยากาศริมทะเลได้
+                        ในร้านที่มีวิวทะเล
+                    </li>
+
+                    <li>
+                        ช่วยสนับสนุนชาวประมง
+                        และผู้ประกอบการในชุมชน
+                    </li>
+
+                </ul>
+
+                <!-- หัวข้อย่อยที่ 3 -->
+                <h3>คำแนะนำในการรับประทาน</h3>
+
+                <p>
+                    ควรเลือกร้านอาหารที่สะอาด
+                    ใช้วัตถุดิบสดใหม่ ปรุงอาหารให้สุก
+                    และสอบถามราคาก่อนสั่งอาหาร
+                    เนื่องจากราคาอาหารทะเล
+                    อาจเปลี่ยนแปลงตามฤดูกาล
+                </p>
+
+                <!-- หมายเหตุ -->
+                <div class="note">
+                    <p>
+                        <strong>หมายเหตุ:</strong>
+                        ราคาอาหารทะเลขึ้นอยู่กับชนิด
+                        ขนาด น้ำหนัก และราคาของแต่ละร้าน
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+  <!-- ปุ่มกลับไปดูแหล่งท่องเที่ยว -->
+<a class="back-button" href="places.html">
+    ← กลับไปดูแหล่งท่องเที่ยว
+</a>
+
+</main>
+
+<!-- ส่วนท้ายเว็บไซต์ -->
+<footer>
+
+    <p>
+        จัดทำโดย นายวรวุฒิ ศรีสวัสดิ์071
+        | ใบงานฝึกปฏิบัติวิชาการสร้างเว็บไซต์ทางธุรกิจ
+    </p>
+
+</footer>
+
+</body>
+</html>

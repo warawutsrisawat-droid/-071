@@ -1,0 +1,1035 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อมูลการเดินทาง | เที่ยวบ้านเรา</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ตั้งค่าพื้นฐานเว็บไซต์ */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #F3F6F3;
+            color: #294D3E;
+            line-height: 1.7;
+        }
+
+        /* ส่วนหัวและส่วนท้ายเว็บไซต์ */
+        header, footer {
+            background: #294D3E;
+            color: white;
+            padding: 15px 20px;
+        }
+
+        .site-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 12px;
+        }
+
+        /* เมนูนำทาง */
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 8px;
+        }
+
+        nav a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+
+        nav a:hover,
+        nav a[aria-current="page"] {
+            background: #E5EFE8;
+            color: #294D3E;
+        }
+
+        /* พื้นที่เนื้อหาหลัก */
+        main {
+            width: 95%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 15px;
+        }
+
+        /* แบนเนอร์ด้านบน */
+        .hero {
+            background:
+                linear-gradient(
+                    rgba(20,50,38,0.75),
+                    rgba(20,50,38,0.75)
+                ),
+                url("images/aomanow.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-color: #294D3E;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin: 10px 0;
+        }
+
+        .hero p {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: #E5EFE8;
+            color: #294D3E;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        /* หัวข้อหลักของแต่ละส่วน */
+        .section-title {
+            font-size: 25px;
+            color: #294D3E;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #DCE7DF;
+            margin-top: 35px;
+            margin-bottom: 25px;
+        }
+
+        /* จัดการเดินทางเป็น 3 คอลัมน์ */
+        .transport-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        /* กรอบข้อมูลการเดินทาง */
+        .transport-card {
+            background: white;
+            border: 1px solid #DCE7DF;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+            transition: 0.3s;
+        }
+
+        .transport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+        }
+
+        /* ไอคอนยานพาหนะ */
+        .transport-icon {
+            width: 75px;
+            height: 75px;
+            background: #E5EFE8;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 38px;
+            margin: 0 auto 15px;
+        }
+
+        /* หัวข้อชื่อยานพาหนะ */
+        .transport-card h2 {
+            text-align: center;
+            font-size: 23px;
+            margin: 10px 0;
+            color: #294D3E;
+        }
+
+        /* ข้อความอธิบาย */
+        .transport-card p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555555;
+        }
+
+        /* หัวข้อย่อย */
+        .transport-card h3 {
+            background: #E5EFE8;
+            color: #294D3E;
+            border-left: 5px solid #294D3E;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 17px;
+        }
+
+        .transport-card ul {
+            padding-left: 22px;
+        }
+
+        .transport-card li {
+            color: #555555;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* กล่องข้อมูลการเดินทางในเมือง */
+        .local-box {
+            background: white;
+            border: 1px solid #DCE7DF;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+        }
+
+        .local-box h2 {
+            margin-top: 0;
+            font-size: 23px;
+        }
+
+        .local-box p {
+            color: #555555;
+        }
+
+        .local-box li {
+            margin-bottom: 10px;
+            color: #555555;
+        }
+
+        /* รายการสถานที่ท่องเที่ยว */
+        .destination-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* กรอบสถานที่แต่ละแห่ง */
+        .destination-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            border: 1px solid #DCE7DF;
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+        }
+
+        /* หมายเลขลำดับ */
+        .number {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #294D3E;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        /* รูปภาพสถานที่ */
+        .destination-card img {
+            width: 200px;
+            height: 145px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        /* พื้นที่ข้อความ */
+        .destination-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* หัวข้อชื่อสถานที่ */
+        .destination-info h2 {
+            margin: 0 0 8px;
+            color: #294D3E;
+            font-size: 22px;
+        }
+
+        /* รายละเอียดเส้นทาง */
+        .destination-info p {
+            margin: 5px 0;
+            color: #555555;
+            font-size: 15px;
+        }
+
+        /* ปุ่มเปิดแผนที่ */
+        .map-button {
+            display: inline-block;
+            background: #294D3E;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .map-button:hover {
+            background: #3E7059;
+        }
+
+        /* กล่อง Google Maps */
+        .map-section {
+            background: white;
+            border: 1px solid #DCE7DF;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .map-section h2 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        .map-section p {
+            color: #555555;
+        }
+
+        /* ขนาดแผนที่ */
+        .map-section iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: 10px;
+        }
+
+        /* กล่องคำแนะนำ */
+        .tips {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #DCE7DF;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .tips h2 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        /* ช่องรายการเตรียมตัว */
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #F3F6F3;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            color: #444444;
+            cursor: pointer;
+        }
+
+        .check-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #294D3E;
+        }
+
+        /* กล่องหมายเหตุ */
+        .note {
+            background: #FFF0D7;
+            border-left: 5px solid #D6A65A;
+            padding: 15px 20px;
+            border-radius: 6px;
+            color: #745522;
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        /* ปุ่มด้านล่าง */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .action-button {
+            display: inline-block;
+            background: #294D3E;
+            color: white;
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .action-button:hover {
+            background: #3E7059;
+        }
+
+        /* ส่วนท้ายเว็บไซต์ */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        /* รองรับหน้าจอแท็บเล็ต */
+        @media (max-width: 1000px) {
+
+            .transport-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* รองรับหน้าจอโทรศัพท์ */
+        @media (max-width: 700px) {
+
+            .hero h1 {
+                font-size: 27px;
+            }
+
+            .hero {
+                padding: 35px 15px;
+            }
+
+            .transport-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .destination-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .destination-card img {
+                width: 100%;
+                height: 220px;
+            }
+
+            .map-section iframe {
+                height: 300px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ================================= -->
+<!-- ส่วนหัวเว็บไซต์ -->
+<!-- ================================= -->
+
+<header>
+
+    <p class="site-name">เที่ยวบ้านเรา</p>
+
+    <!-- เมนูนำทาง -->
+    <nav>
+        <ul>
+
+            <li><a href="index.html">หน้าแรก</a></li>
+
+            <li><a href="places.html">ที่เที่ยว</a></li>
+
+            <li><a href="food.html">อาหาร</a></li>
+
+            <li><a href="plan.html">วางแผนเที่ยว</a></li>
+
+            <li>
+                <a href="travel.html" aria-current="page">
+                    ข้อมูลการเดินทาง
+                </a>
+            </li>
+
+            <li><a href="index.html">เข้าสู่ระบบ</a></li>
+
+        </ul>
+    </nav>
+
+</header>
+
+<!-- เนื้อหาหลัก -->
+<main>
+
+    <!-- ================================= -->
+    <!-- ส่วนที่ 1 แบนเนอร์หัวเว็บไซต์ -->
+    <!-- ================================= -->
+
+    <section class="hero">
+
+        <span class="hero-label">TRAVEL GUIDE</span>
+
+        <!-- หัวข้อใหญ่ -->
+        <h1>ข้อมูลการเดินทาง</h1>
+
+        <!-- ข้อความแนะนำ -->
+        <p>
+            เดินทางสะดวก เที่ยวสนุก
+            สัมผัสเมืองสามอ่าว
+        </p>
+
+        <p>จังหวัดประจวบคีรีขันธ์</p>
+
+    </section>
+
+    <!-- ================================= -->
+    <!-- ส่วนที่ 2 วิธีการเดินทาง -->
+    <!-- ================================= -->
+
+    <h2 class="section-title">
+        1. วิธีเดินทางมายังประจวบคีรีขันธ์
+    </h2>
+
+    <div class="transport-grid">
+
+        <!-- วิธีที่ 1 รถยนต์ -->
+        <article class="transport-card">
+
+            <div class="transport-icon">🚗</div>
+
+            <!-- หัวข้อหลัก -->
+            <h2>รถยนต์ส่วนตัว</h2>
+
+            <!-- ข้อความอธิบาย -->
+            <p>
+                เหมาะสำหรับผู้ที่ต้องการเดินทาง
+                อย่างยืดหยุ่น สามารถแวะพัก
+                และเที่ยวหลายสถานที่ได้
+            </p>
+
+            <!-- หัวข้อย่อย -->
+            <h3>เส้นทางแนะนำจากกรุงเทพฯ</h3>
+
+            <ul>
+                <li>
+                    ใช้ถนนพระราม 2
+                    ทางหลวงหมายเลข 35
+                </li>
+
+                <li>
+                    ผ่านสมุทรสาครและสมุทรสงคราม
+                </li>
+
+                <li>
+                    เข้าสู่ถนนเพชรเกษม
+                    ทางหลวงหมายเลข 4
+                </li>
+
+                <li>
+                    ผ่านเพชรบุรีและเข้าสู่
+                    จังหวัดประจวบคีรีขันธ์
+                </li>
+            </ul>
+
+            <h3>ระยะทางโดยประมาณ</h3>
+
+            <p>
+                ประมาณ 280 กิโลเมตร
+                ขึ้นอยู่กับจุดเริ่มต้นและเส้นทาง
+            </p>
+
+            <h3>ข้อดี</h3>
+
+            <p>
+                สามารถวางแผนเวลา
+                และเลือกสถานที่แวะพักได้เอง
+            </p>
+
+        </article>
+
+        <!-- วิธีที่ 2 รถไฟ -->
+        <article class="transport-card">
+
+            <div class="transport-icon">🚆</div>
+
+            <!-- หัวข้อหลัก -->
+            <h2>รถไฟ</h2>
+
+            <!-- ข้อความอธิบาย -->
+            <p>
+                เหมาะสำหรับนักท่องเที่ยว
+                ที่ต้องการเดินทางโดยไม่ขับรถเอง
+                และชมบรรยากาศระหว่างทาง
+            </p>
+
+            <!-- หัวข้อย่อย -->
+            <h3>ขั้นตอนการเดินทาง</h3>
+
+            <ul>
+                <li>
+                    เลือกขบวนรถไฟสายใต้
+                </li>
+
+                <li>
+                    ตรวจสอบสถานีต้นทาง
+                    และเวลาของแต่ละขบวน
+                </li>
+
+                <li>
+                    ลงที่สถานีรถไฟประจวบคีรีขันธ์
+                </li>
+
+                <li>
+                    ต่อรถรับจ้างไปยังที่พัก
+                    หรือสถานที่ท่องเที่ยว
+                </li>
+            </ul>
+
+            <h3>ข้อดี</h3>
+
+            <p>
+                ไม่ต้องขับรถเอง
+                และสามารถพักผ่อนระหว่างเดินทาง
+            </p>
+
+            <!-- ปุ่มตรวจสอบข้อมูลรถไฟ -->
+            <a class="map-button"
+               href="https://www.railway.co.th/"
+               target="_blank"
+               rel="noopener noreferrer">
+                ตรวจสอบข้อมูลรถไฟ
+            </a>
+
+        </article>
+
+        <!-- วิธีที่ 3 รถโดยสาร -->
+        <article class="transport-card">
+
+            <div class="transport-icon">🚌</div>
+
+            <!-- หัวข้อหลัก -->
+            <h2>รถโดยสารสาธารณะ</h2>
+
+            <!-- ข้อความอธิบาย -->
+            <p>
+                เป็นทางเลือกสำหรับผู้ที่ไม่มีรถส่วนตัว
+                สามารถเลือกใช้รถโดยสารหรือรถตู้
+                ตามเส้นทางที่ให้บริการ
+            </p>
+
+            <!-- หัวข้อย่อย -->
+            <h3>ขั้นตอนการเดินทาง</h3>
+
+            <ul>
+                <li>
+                    ตรวจสอบจุดขึ้นรถและผู้ให้บริการ
+                </li>
+
+                <li>
+                    เลือกเส้นทางที่จอดใน
+                    อำเภอเมืองประจวบคีรีขันธ์
+                </li>
+
+                <li>
+                    ตรวจสอบราคาและรอบรถ
+                    ก่อนออกเดินทาง
+                </li>
+
+                <li>
+                    ต่อรถรับจ้างไปยังจุดหมาย
+                </li>
+            </ul>
+
+            <h3>ข้อดี</h3>
+
+            <p>
+                ไม่จำเป็นต้องมีรถยนต์ส่วนตัว
+                และสามารถเลือกบริการตามงบประมาณ
+            </p>
+
+            <a class="map-button"
+               href="https://www.google.com/maps/search/?api=1&query=สถานีขนส่งผู้โดยสารประจวบคีรีขันธ์"
+               target="_blank"
+               rel="noopener noreferrer">
+                📍 ค้นหาสถานีขนส่ง
+            </a>
+
+        </article>
+
+    </div>
+
+    <!-- การเดินทางภายในตัวเมือง -->
+
+    <section class="local-box">
+
+        <h2>การเดินทางภายในตัวเมือง</h2>
+
+        <p>
+            เมื่อเดินทางมาถึงประจวบคีรีขันธ์แล้ว
+            สามารถเลือกวิธีเดินทางไปยัง
+            สถานที่ท่องเที่ยวตามความเหมาะสม
+        </p>
+
+        <ul>
+
+            <li>
+                <strong>รถยนต์ส่วนตัว:</strong>
+                เหมาะสำหรับเดินทางระหว่างสถานที่
+            </li>
+
+            <li>
+                <strong>รถรับจ้างท้องถิ่น:</strong>
+                ควรสอบถามราคาและจุดหมายก่อนใช้บริการ
+            </li>
+
+            <li>
+                <strong>การเดินเท้า:</strong>
+                เหมาะสำหรับสถานที่ที่อยู่ใกล้กัน
+                และมีทางเดินที่ปลอดภัย
+            </li>
+
+        </ul>
+
+    </section>
+
+    <!-- ================================= -->
+    <!-- ส่วนที่ 3 เส้นทางไปสถานที่ท่องเที่ยว -->
+    <!-- ================================= -->
+
+    <h2 class="section-title">
+        2. เส้นทางไปยังสถานที่ท่องเที่ยว
+    </h2>
+
+    <div class="destination-list">
+
+        <!-- สถานที่ที่ 1 เขาช่องกระจก -->
+
+        <article class="destination-card">
+
+            <div class="number">01</div>
+
+            <!-- รูปภาพ -->
+            <img src="images/Kaow.jpg"
+                 alt="เขาช่องกระจก">
+
+            <div class="destination-info">
+
+                <!-- หัวข้อสถานที่ -->
+                <h2>เขาช่องกระจก</h2>
+
+                <!-- ข้อความรายละเอียด -->
+                <p>
+                    <strong>ที่ตั้ง:</strong>
+                    บริเวณตัวเมืองประจวบคีรีขันธ์
+                    ใกล้ศาลากลางจังหวัด
+                </p>
+
+                <p>
+                    <strong>การเดินทาง:</strong>
+                    สามารถเดินทางมายังบริเวณ
+                    วัดธรรมิการามวรวิหาร
+                    แล้วเดินไปยังจุดขึ้นเขา
+                </p>
+
+                <a class="map-button"
+                   href="https://www.google.com/maps/search/?api=1&query=เขาช่องกระจก+ประจวบคีรีขันธ์"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    📍 ดูแผนที่
+                </a>
+
+            </div>
+
+        </article>
+
+        <!-- สถานที่ที่ 2 ศาลหลักเมือง -->
+
+        <article class="destination-card">
+
+            <div class="number">02</div>
+
+            <img src="images/lukmuang.jpg"
+                 alt="ศาลหลักเมือง">
+
+            <div class="destination-info">
+
+                <h2>ศาลหลักเมืองประจวบคีรีขันธ์</h2>
+
+                <p>
+                    <strong>ที่ตั้ง:</strong>
+                    ถนนสละชีพ อำเภอเมืองประจวบคีรีขันธ์
+                </p>
+
+                <p>
+                    <strong>การเดินทาง:</strong>
+                    อยู่บริเวณตัวเมือง
+                    สามารถเดินทางต่อจากเขาช่องกระจกได้
+                </p>
+
+                <a class="map-button"
+                   href="https://www.google.com/maps/search/?api=1&query=ศาลหลักเมืองประจวบคีรีขันธ์"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    📍 ดูแผนที่
+                </a>
+
+            </div>
+
+        </article>
+
+        <!-- สถานที่ที่ 3 อ่าวมะนาว -->
+
+        <article class="destination-card">
+
+            <div class="number">03</div>
+
+            <img src="images/aomanow.jpg"
+                 alt="อ่าวมะนาว">
+
+            <div class="destination-info">
+
+                <h2>อ่าวมะนาว</h2>
+
+                <p>
+                    <strong>ที่ตั้ง:</strong>
+                    บริเวณพื้นที่กองบิน 5
+                    อำเภอเมืองประจวบคีรีขันธ์
+                </p>
+
+                <p>
+                    <strong>การเดินทาง:</strong>
+                    จากตัวเมืองเดินทางไปทางถนนสละชีพ
+                    มุ่งหน้าสู่พื้นที่กองบิน 5
+                    และปฏิบัติตามข้อกำหนดการเข้าพื้นที่
+                </p>
+
+                <a class="map-button"
+                   href="https://www.google.com/maps/search/?api=1&query=อ่าวมะนาว+ประจวบคีรีขันธ์"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    📍 ดูแผนที่
+                </a>
+
+            </div>
+
+        </article>
+
+        <!-- สถานที่ที่ 4 เขาล้อมหมวก -->
+
+        <article class="destination-card">
+
+            <div class="number">04</div>
+
+            <img src="images/KLM.jpg"
+                 alt="เขาล้อมหมวก">
+
+            <div class="destination-info">
+
+                <h2>เขาล้อมหมวก</h2>
+
+                <p>
+                    <strong>ที่ตั้ง:</strong>
+                    บริเวณพื้นที่กองบิน 5
+                    ใกล้อ่าวมะนาว
+                </p>
+
+                <p>
+                    <strong>การเดินทาง:</strong>
+                    สามารถชมทิวทัศน์จากบริเวณ
+                    ที่ได้รับอนุญาตให้เข้าชม
+                    และควรตรวจสอบข้อกำหนดของเจ้าหน้าที่
+                </p>
+
+                <a class="map-button"
+                   href="https://www.google.com/maps/search/?api=1&query=เขาล้อมหมวก+ประจวบคีรีขันธ์"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    📍 ดูแผนที่
+                </a>
+
+            </div>
+
+        </article>
+
+        <!-- สถานที่ที่ 5 สะพานปลา -->
+
+        <article class="destination-card">
+
+            <div class="number">05</div>
+
+            <img src="images/sapanpla.jpg"
+                 alt="สะพานปลา">
+
+            <div class="destination-info">
+
+                <h2>สะพานปลา</h2>
+
+                <p>
+                    <strong>ที่ตั้ง:</strong>
+                    บริเวณชายฝั่งอำเภอเมืองประจวบคีรีขันธ์
+                </p>
+
+                <p>
+                    <strong>กิจกรรม:</strong>
+                    ชมบรรยากาศริมทะเล
+                    และถ่ายภาพในบริเวณที่เปิดให้เข้าชม
+                </p>
+
+                <a class="map-button"
+                   href="https://www.google.com/maps/search/?api=1&query=สะพานปลา+เมืองประจวบคีรีขันธ์"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    📍 ค้นหาตำแหน่ง
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    <!-- ================================= -->
+    <!-- ส่วนที่ 4 แผนที่ Google Maps -->
+    <!-- ================================= -->
+
+    <section class="map-section">
+
+        <!-- หัวข้อหลัก -->
+        <h2>3. แผนที่การเดินทาง</h2>
+
+        <!-- ข้อความอธิบาย -->
+        <p>
+            สามารถตรวจสอบตำแหน่งสถานที่ท่องเที่ยว
+            และวางแผนเส้นทางการเดินทาง
+            ผ่าน Google Maps ได้
+        </p>
+
+        <!-- แผนที่ -->
+        <iframe
+            src="https://maps.google.com/maps?q=อำเภอเมืองประจวบคีรีขันธ์&z=13&output=embed"
+            title="แผนที่เมืองประจวบคีรีขันธ์"
+            loading="lazy"
+            allowfullscreen>
+        </iframe>
+
+        <!-- ปุ่มเปิด Google Maps -->
+        <a class="map-button"
+           href="https://www.google.com/maps/search/?api=1&query=อำเภอเมืองประจวบคีรีขันธ์"
+           target="_blank"
+           rel="noopener noreferrer">
+            🗺️ เปิด Google Maps
+        </a>
+
+    </section>
+
+    <!-- ================================= -->
+    <!-- ส่วนที่ 5 คำแนะนำก่อนเดินทาง -->
+    <!-- ================================= -->
+
+    <section class="tips">
+
+        <h2>4. เตรียมตัวก่อนเดินทาง</h2>
+
+        <p>
+            สามารถกดติ๊กเพื่อตรวจสอบสิ่งที่เตรียม
+            เรียบร้อยแล้วก่อนออกเดินทาง
+        </p>
+
+        <label class="check-item">
+            <input type="checkbox">
+            ตรวจสอบสภาพอากาศก่อนออกเดินทาง
+        </label>
+
+        <label class="check-item">
+            <input type="checkbox">
+            เตรียมบัตรประชาชนและเอกสารที่จำเป็น
+        </label>
+
+        <label class="check-item">
+            <input type="checkbox">
+            เตรียมน้ำดื่มและสัมภาระส่วนตัว
+        </label>
+
+        <label class="check-item">
+            <input type="checkbox">
+            เตรียมโทรศัพท์และแบตเตอรี่สำรอง
+        </label>
+
+        <label class="check-item">
+            <input type="checkbox">
+            ตรวจสอบเวลาเปิดของสถานที่ท่องเที่ยว
+        </label>
+
+        <label class="check-item">
+            <input type="checkbox">
+            วางแผนงบประมาณค่าเดินทางและอาหาร
+        </label>
+
+        <label class="check-item">
+            <input type="checkbox">
+            ตรวจสอบเส้นทางและจุดหมายปลายทาง
+        </label>
+
+    </section>
+
+    <!-- หมายเหตุ -->
+    <div class="note">
+
+        <strong>หมายเหตุ:</strong>
+
+        ระยะทาง เวลาเดินทาง ค่าโดยสาร
+        และเวลาเปิดทำการอาจเปลี่ยนแปลงได้
+        ควรตรวจสอบข้อมูลล่าสุดก่อนออกเดินทาง
+        การแสดงแผนที่จำเป็นต้องเชื่อมต่ออินเทอร์เน็ต
+
+        <p>
+            แหล่งข้อมูลการเดินทาง:
+            <a href="https://prachuapkhirikhan.mots.go.th/news/category/46"
+               target="_blank"
+               rel="noopener noreferrer">
+                สำนักงานการท่องเที่ยวและกีฬาจังหวัดประจวบคีรีขันธ์
+            </a>
+        </p>
+
+    </div>
+
+    <!-- ปุ่มด้านล่างเว็บไซต์ -->
+    <div class="actions">
+
+        <a class="action-button" href="index.html">
+            ← กลับหน้าแรก
+        </a>
+
+        <a class="action-button" href="plan.html">
+            📅 ดูแผนการท่องเที่ยว
+        </a>
+
+    </div>
+
+</main>
+
+<!-- ส่วนท้ายเว็บไซต์ -->
+<footer>
+
+    <p>
+        จัดทำโดย นายวรวุฒิ ศรีสวัสดิ์071
+        | ใบงานฝึกปฏิบัติวิชาการสร้างเว็บไซต์ทางธุรกิจ
+    </p>
+
+</footer>
+
+</body>
+</html>
